@@ -1,6 +1,5 @@
 import axios from "axios";
 
-/* ---------- Types ---------- */
 type Geo = {
   lat: string | null;
   lng: string | null;
@@ -52,14 +51,12 @@ type UserResult = {
   address: Address | null;
 };
 
-/* ---------- Function ---------- */
 export async function addUser(newUserData: NewUser): Promise<UserResult[]> {
   try {
     const res = await axios.get<ApiUser[]>(
       "https://jsonplaceholder.typicode.com/users"
     );
 
-    // map users from API
     const users: UserResult[] = res.data.map((user) => ({
       id: user.id,
       name: user.name,
@@ -76,7 +73,7 @@ export async function addUser(newUserData: NewUser): Promise<UserResult[]> {
       },
     }));
 
-    // edge case: newUserData === null
+
     if (newUserData === null) {
       return users;
     }
